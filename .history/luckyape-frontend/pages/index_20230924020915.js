@@ -1,4 +1,4 @@
-import { Button, Card, Container, Box, Typography, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
+import { Button, Container, Box, Typography, TextField } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useState, useEffect } from "react";
 import { WalletConnect } from "../components/walletConnect";
@@ -46,7 +46,6 @@ export default function Home() {
   const [numBidders, setNumBidders] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
   const [totalPot, setTotalPot] = useState(0);
-  const [bids, setBids] = useState([]);
 
   useEffect(() => {
     const getTotalPot = async () => {
@@ -70,35 +69,6 @@ export default function Home() {
       setTimeLeft(timeLeft);
     };
     getTimeLeft();
-  }, []);
-
-  useEffect(() => {
-    const getTimeLeft = async () => {
-      const timeLeft = await Roulette.connect(provider.getSigner()).getTime();
-      setTimeLeft(timeLeft);
-    };
-    getTimeLeft();
-  }, []);
-
-  useEffect(() => {
-    const getLeaderboard = async () => {
-      const nums = await Roulette.connect(provider.getSigner()).getApes();
-      const bidders = await Promise.all(
-        Array.from({ length: nums }, (_, i) =>
-          Roulette.connect(provider.getSigner()).getBidderAtIndex(i)
-        )
-      );
-      console.log(bidders);
-      const bidderBids = await Promise.all(
-        bidders.map(async (bidder) => {
-            const bid = await Roulette.connect(provider.getSigner()).getBidFromBidder(bidder);
-            return { address: bidder, bid: (bid/10**18).toString() + ' ApeCoin' };
-        })
-      );
-      console.log(bidderBids);
-      setBids(bidderBids);
-    };
-    getLeaderboard();
   }, []);
 
   const [amount, setAmount] = useState(0);
@@ -140,8 +110,6 @@ export default function Home() {
       );
     }
   };
-
-
 
   return (
     <Container
@@ -211,9 +179,9 @@ export default function Home() {
         </Button>
         <br />
         <br />
-        {/* <Button variant="contained" color="cream" onClick={handleButtonClick}>
+        <Button variant="contained" color="cream" onClick={handleButtonClick}>
           Ape In!
-        </Button> */}
+        </Button>
         <br />
         <br />
         </Container>
@@ -228,26 +196,6 @@ export default function Home() {
     
       </Box>
       <br></br>
-      <div>
-        <TableContainer component={Card} style={{backgroundColor: '#FFFFFF'}}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Address</TableCell>
-                <TableCell>Bid</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {bids.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell style = {{color: 'cream'}}>{item.address}</TableCell>
-                  <TableCell style = {{color: 'cream'}}>{item.bid}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-      </Container>
+    </Container>
   );
 }

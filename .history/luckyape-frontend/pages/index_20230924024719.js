@@ -142,7 +142,6 @@ export default function Home() {
   };
 
 
-
   return (
     <Container
       sx={{
@@ -229,7 +228,7 @@ export default function Home() {
       </Box>
       <br></br>
       <div>
-        <TableContainer component={Card} style={{backgroundColor: '#FFFFFF'}}>
+        <TableContainer component={Card} style={{backgroundColor: 'cream'}}>
           <Table>
             <TableHead>
               <TableRow>
@@ -240,8 +239,8 @@ export default function Home() {
             <TableBody>
               {bids.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell style = {{color: 'cream'}}>{item.address}</TableCell>
-                  <TableCell style = {{color: 'cream'}}>{item.bid}</TableCell>
+                  <TableCell>{item.address}</TableCell>
+                  <TableCell>{item.bid}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

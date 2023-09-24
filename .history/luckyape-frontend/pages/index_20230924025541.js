@@ -142,7 +142,6 @@ export default function Home() {
   };
 
 
-
   return (
     <Container
       sx={{
@@ -229,7 +228,7 @@ export default function Home() {
       </Box>
       <br></br>
       <div>
-        <TableContainer component={Card} style={{backgroundColor: '#FFFFFF'}}>
+        <TableContainer component={Card} style={{backgroundColor: '#000000', color: '#FFFFFF'}}>
           <Table>
             <TableHead>
               <TableRow>

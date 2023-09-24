@@ -141,6 +141,11 @@ export default function Home() {
     }
   };
 
+  const useStyles = makeStyles({
+    root: {
+      color: "red"
+    }
+  });
 
 
   return (
@@ -229,7 +234,7 @@ export default function Home() {
       </Box>
       <br></br>
       <div>
-        <TableContainer component={Card} style={{backgroundColor: '#FFFFFF'}}>
+        <TableContainer component={Card} style={{backgroundColor: '#000000'}}>
           <Table>
             <TableHead>
               <TableRow>
@@ -240,8 +245,8 @@ export default function Home() {
             <TableBody>
               {bids.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell style = {{color: 'cream'}}>{item.address}</TableCell>
-                  <TableCell style = {{color: 'cream'}}>{item.bid}</TableCell>
+                  <TableCell className={classes.root} style = {{color: 'cream'}}>{item.address}</TableCell>
+                  <TableCell className={classes.root} style = {{color: 'cream'}}>{item.bid}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

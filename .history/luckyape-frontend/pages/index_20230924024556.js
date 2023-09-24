@@ -1,4 +1,4 @@
-import { Button, Card, Container, Box, Typography, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
+import { Button, Container, Box, Typography, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useState, useEffect } from "react";
 import { WalletConnect } from "../components/walletConnect";
@@ -142,7 +142,6 @@ export default function Home() {
   };
 
 
-
   return (
     <Container
       sx={{
@@ -229,7 +228,7 @@ export default function Home() {
       </Box>
       <br></br>
       <div>
-        <TableContainer component={Card} style={{backgroundColor: '#FFFFFF'}}>
+        <TableContainer component={Paper} style={backgroundColor:cream}>
           <Table>
             <TableHead>
               <TableRow>
@@ -240,8 +239,8 @@ export default function Home() {
             <TableBody>
               {bids.map((item, index) => (
                 <TableRow key={index}>
-                  <TableCell style = {{color: 'cream'}}>{item.address}</TableCell>
-                  <TableCell style = {{color: 'cream'}}>{item.bid}</TableCell>
+                  <TableCell>{item.address}</TableCell>
+                  <TableCell>{item.bid}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

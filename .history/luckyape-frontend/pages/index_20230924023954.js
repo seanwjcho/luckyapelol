@@ -1,4 +1,4 @@
-import { Button, Card, Container, Box, Typography, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
+import { Button, Container, Box, Typography, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useState, useEffect } from "react";
 import { WalletConnect } from "../components/walletConnect";
@@ -92,7 +92,7 @@ export default function Home() {
       const bidderBids = await Promise.all(
         bidders.map(async (bidder) => {
             const bid = await Roulette.connect(provider.getSigner()).getBidFromBidder(bidder);
-            return { address: bidder, bid: (bid/10**18).toString() + ' ApeCoin' };
+            return { address: bidder, bid: bid.toString() };
         })
       );
       console.log(bidderBids);
@@ -140,7 +140,6 @@ export default function Home() {
       );
     }
   };
-
 
 
   return (
@@ -229,25 +228,26 @@ export default function Home() {
       </Box>
       <br></br>
       <div>
-        <TableContainer component={Card} style={{backgroundColor: '#FFFFFF'}}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Address</TableCell>
-                <TableCell>Bid</TableCell>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Address</TableCell>
+              <TableCell>Bid</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {bids.map((item, index) => (
+              <TableRow key={index}>
+                <TableCell>{item.address}</TableCell>
+                <TableCell>{item.bid}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {bids.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell style = {{color: 'cream'}}>{item.address}</TableCell>
-                  <TableCell style = {{color: 'cream'}}>{item.bid}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-      </Container>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Bar data={bids} />
+    </div>
+    </Container>
   );
 }
