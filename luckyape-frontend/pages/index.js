@@ -5,6 +5,9 @@ import { WalletConnect } from "../components/walletConnect";
 import { createTheme } from "@mui/material/styles";
 import { ContractABI, M20ABI } from "../components/contractABI.js";
 import { ethers } from "ethers";
+import Image from "next/future/image";
+// import Ape from "../components/ape"
+import ape from "../public/apecoin.svg"
 
 // create provider variable
 let provider;
@@ -22,7 +25,7 @@ if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
 
 // create smart contract variable wiht inputs: contract address, abi, and signer
 const Roulette = new ethers.Contract(
-  "0xF59Fd31A737135E3D232f5c3D39B2633AD6Ea0C6",
+  "0xB48237A9eAbDCc9CdaA6A19749CCF67988335E94",
   ContractABI,
   provider.getSigner()
 );
@@ -112,6 +115,7 @@ export default function Home() {
   };
 
   return (
+    <>
     <Container
       sx={{
         height: "100vh",
@@ -197,5 +201,9 @@ export default function Home() {
       </Box>
       <br></br>
     </Container>
+    <div style={{position:'absolute', top:200, right: 10}}>
+    <Image src={ape} width={1000} height={1000} layout="raw" style={{position:'absolute!important',  opacity: .1}}/>
+    </div>
+    </>
   );
 }
