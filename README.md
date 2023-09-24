@@ -5,8 +5,7 @@ The first on-chain, verifiable multiplayer game using ApeCoin
 ----
 ## Live website: 
 
-TODO
-
+https://lucky-ape.vercel.app/
 ---
 
 
