@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Web3Provider } from "@ethersproject/providers";
 import {Button, Container, Box, Typography, TextField} from '@mui/material';
 
+import { theme } from "../pages/index";
+
 
 export function WalletConnect() {
   // getting whether user is authenticated
@@ -63,16 +65,17 @@ export function WalletConnect() {
     }
   }
 
+  if (authenticated) {
+    return (<div>hey</div>);
+  }
   // Top Navigation Bar Element
   return (
      <Button
-          variant="contained"
-          position="absolute"
-          top="1rem"
-          bottom="1rem"
+          variant="outlined"
+          color="cream"
           onClick={() => connectWallet()}
-        >
-          Connect
-        </Button>
-  );
+    >
+    Connect
+  </Button>
+  )
 }

@@ -1,5 +1,8 @@
+/**
+ *Submitted for verification at Etherscan.io on 2023-09-24
+*/
+
 pragma solidity ^0.8.9;
-import "./IERC20.sol";
 
 
 contract Roulette {
@@ -108,24 +111,17 @@ contract Roulette {
 
     //can we AUTOMATICALLY calculate the winner RANDOMLY after the game is supposed to end?
 
-    function submitBid() public payable {
+    function submitBid() payable external returns (bool) {
         require (msg.value > 0);
         require (msg.value <= parameters.maxBet);
-        require (msg.sender != owner);
+        //require (msg.sender != owner);
         require (block.timestamp <= endTime);
         require (gameStarted == true);
         require (bids[msg.sender] == 0);
-        require (msg.sender == apeCoinAddress);
+        //require (msg.sender == apeCoinAddress);
 
         bidders.push(msg.sender);
         bids[msg.sender] = msg.value;
         emit Entered(msg.sender, msg.value);
     }
-
-
-
-
-
-
-
 }
