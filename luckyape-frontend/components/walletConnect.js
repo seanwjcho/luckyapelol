@@ -66,7 +66,13 @@ export function WalletConnect() {
   }
 
   if (authenticated) {
-    return (<div>hey</div>);
+    return (<Button
+      variant="outlined"
+      color="cream"
+      onClick={() => connectWallet()}
+>
+Connected
+</Button>);
   }
   // Top Navigation Bar Element
   return (
