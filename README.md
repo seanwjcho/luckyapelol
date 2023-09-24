@@ -1,5 +1,7 @@
 # luckyapelol
 
+The first on-chain, verifiable multiplayer game using ApeCoin
+
 ----
 ## Live website: 
 
@@ -10,11 +12,7 @@ TODO
 
 ## Premise: 
 
-The dApp is a simple implementation for the scenario that a charity decides to do a web3 token fundraising event. The smart contract connected with this dApp is a simple donate and withdraw contract which collects donations from any wallet addresses but only allows the owner of the contract to withdraw the funds (the address that deployed the contract) to ensure security of funds. 
-
-This boilerplate template is intended for beginner web3 developers who are learning ethers.js and solidity to easily implement their own ideas with ease. By gaining insight on what the fullstack behind a simple dApp looks like, others can hopefully recreate this with more interesting and complex implementations of their own.
-
-Full documentation and video tutorial TBA, but hopefully the comments in the code provide good context. Email me at zilecao.sas@upenn.edu for any questions!
+LuckyApe allows users to gamble their hard-earned ApeCoin socially for the chance to win big while supporting the ApeCoin ecosystem. Users can verify that proceeds are split transparently between the prize pool and ApeCasino (or channeled back into the ecosystem), as well as audit overall game fairness, receiving a near-instant payoff if successful.
 
 ---
 
