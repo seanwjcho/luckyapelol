@@ -1,13 +1,10 @@
-import { Button, Card, Container, Box, Typography, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from "@mui/material";
+import { Button, Container, Box, Typography, TextField } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import React, { useState, useEffect } from "react";
 import { WalletConnect } from "../components/walletConnect";
 import { createTheme } from "@mui/material/styles";
 import { ContractABI, M20ABI } from "../components/contractABI.js";
 import { ethers } from "ethers";
-import Image from "next/future/image";
-// import Ape from "../components/ape"
-import ape from "../public/apecoin.svg"
 
 // create provider variable
 let provider;
@@ -25,7 +22,7 @@ if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
 
 // create smart contract variable wiht inputs: contract address, abi, and signer
 const Roulette = new ethers.Contract(
-  "0xB48237A9eAbDCc9CdaA6A19749CCF67988335E94",
+  "0xF59Fd31A737135E3D232f5c3D39B2633AD6Ea0C6",
   ContractABI,
   provider.getSigner()
 );
@@ -49,7 +46,7 @@ export default function Home() {
   const [numBidders, setNumBidders] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
   const [totalPot, setTotalPot] = useState(0);
-  const [bids, setBids] = useState([]);
+  const [bidders, setBidders] = useState([]);
 
   useEffect(() => {
     const getTotalPot = async () => {
@@ -85,23 +82,10 @@ export default function Home() {
 
   useEffect(() => {
     const getLeaderboard = async () => {
-      const nums = await Roulette.connect(provider.getSigner()).getApes();
-      const bidders = await Promise.all(
-        Array.from({ length: nums }, (_, i) =>
-          Roulette.connect(provider.getSigner()).getBidderAtIndex(i)
-        )
-      );
-      console.log(bidders);
-      const bidderBids = await Promise.all(
-        bidders.map(async (bidder) => {
-            const bid = await Roulette.connect(provider.getSigner()).getBidFromBidder(bidder);
-            return { address: bidder, bid: (bid/10**18).toString() + ' ApeCoin' };
-        })
-      );
-      console.log(bidderBids);
-      setBids(bidderBids);
+      const timeLeft = await Roulette.connect(provider.getSigner()).getTime();
+      setTimeLeft(timeLeft);
     };
-    getLeaderboard();
+    getTimeLeft();
   }, []);
 
   const [amount, setAmount] = useState(0);
@@ -144,10 +128,25 @@ export default function Home() {
     }
   };
 
+  const getLeaderboard = async () => {
+    try {
+      const signer = await provider.getSigner();
+      const signerAddress = await signer.getAddress();
+      const balance = await M20.balanceOf(signerAddress);
 
+      const tx = await M20.approve(Roulette.address, balance);
+      
+      var popup = alert("approved!");
+    } catch (error) {
+      console.log(error);
+      var popup = alert(
+        "Error: caused by either invalid input, insufficient balance, or wrong network!"
+      );
+    }
+
+  };
 
   return (
-    <>
     <Container
       sx={{
         height: "100vh",
@@ -215,9 +214,9 @@ export default function Home() {
         </Button>
         <br />
         <br />
-        {/* <Button variant="contained" color="cream" onClick={handleButtonClick}>
+        <Button variant="contained" color="cream" onClick={handleButtonClick}>
           Ape In!
-        </Button> */}
+        </Button>
         <br />
         <br />
         </Container>
@@ -232,26 +231,6 @@ export default function Home() {
     
       </Box>
       <br></br>
-      <div>
-        <TableContainer component={Card} style={{backgroundColor: '#FFFFFF'}}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Address</TableCell>
-                <TableCell>Bid</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {bids.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell style = {{color: 'cream'}}>{item.address}</TableCell>
-                  <TableCell style = {{color: 'cream'}}>{item.bid}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-      </Container>
+    </Container>
   );
 }
