@@ -1,4 +1,4 @@
-# luckyapelol
+# LuckyApe
 
 The first on-chain, verifiable multiplayer game using ApeCoin
 
